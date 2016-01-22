@@ -6,6 +6,7 @@
 	<link rel="stylesheet" href="main.css">
 	<script src="https://cdn.firebase.com/js/client/2.3.2/firebase.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script src="js/jquery.timer.min.js"></script>
 </head>
 <body>
 
@@ -13,19 +14,24 @@
 	<div class="inner">
 		<div class="">The toilet is: </div>
 		<div class="toilet-status"></div>
+		<div class="toiler-timer"></div>
 	</div>
 </div>
 
 <script>
 	var ref = new Firebase("https://need2wee.firebaseio.com/occupied/");
+	var $timer = $('.toiler-timer');
 
+	
 	ref.on("value", function(thing){
 		var status = thing.val()["occupied"];
 
 		if (status == "true") {
 			$(".toilet-status").html("occupied");
+			$timer.timer();
 		} else if (status == "false") {
 			$(".toilet-status").html("vacant");
+			$timer.timer('remove');
 		}
 	});
 </script>

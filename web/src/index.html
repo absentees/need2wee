@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Need2Wee</title>
+	<title>PC Toilet</title>
 	<link rel="stylesheet" href="main.css">
 	<script src="https://cdn.firebase.com/js/client/2.3.2/firebase.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
@@ -10,18 +10,21 @@
 <body>
 
 <div class="container">
-	<div class="">Toilet is: </div>
-	<div class="toilet-status"></div>
+	<div class="inner">
+		<div class="">The toilet is: </div>
+		<div class="toilet-status"></div>
+	</div>
 </div>
 
 <script>
-	var ref = new Firebase("https://need2wee.firebaseio.com/occupied");
+	var ref = new Firebase("https://need2wee.firebaseio.com/occupied/");
 
 	ref.on("value", function(thing){
+		var status = thing.val()["occupied"];
 
-		if (thing.val() == true) {
+		if (status == "true") {
 			$(".toilet-status").html("occupied");
-		} else if (thing.val() == false) {
+		} else if (status == "false") {
 			$(".toilet-status").html("vacant");
 		}
 	});

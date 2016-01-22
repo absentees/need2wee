@@ -47,20 +47,36 @@ table {
 	border-spacing: 0;
 }
 
-*, html, body{
-	/*font-family: helvetica, sans-serif;
+@import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
+
+html, body{
+	font-family: helvetica, sans-serif;
 	height: 100%;
-	width: 100%;*/
+	width: 100%;
+	font-family: 'Montserrat', sans-serif;
+
 }
 
 .container{
-display:flex;justify-content:center;align-items:center;
-
+	display: table;
+	width: 100%;
+	height: 100vh;
 	text-align: center;
 	font-size: 22px;
 	color: #040404;
+
+	font-size: 48px;
+	background-color: #EEEFF7;
+	line-height: 56px;
+	color: #1C1D21;
 }
 
-.container div{
+.inner{
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.toilet-status{
+	font-weight: 800;
 
 }

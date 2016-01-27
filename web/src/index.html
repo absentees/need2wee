@@ -13,7 +13,7 @@
 <div class="container">
 	<div class="inner">
 		<div class="">The toilet is: </div>
-		<div class="toilet-status"></div>
+		<div class="toilet-status -loading"><img height="45px" src="./img/toilet-emoji.png" alt="spinner"></div>
 		<div class="toiler-timer"></div>
 	</div>
 </div>
@@ -22,15 +22,17 @@
 	var ref = new Firebase("https://need2wee.firebaseio.com/occupied/");
 	var $timer = $('.toiler-timer');
 
-	
+
 	ref.on("value", function(thing){
 		var status = thing.val()["occupied"];
 
 		if (status == "true") {
 			$(".toilet-status").html("occupied");
+			$(".toilet-status").removeClass("-loading");
 			$timer.timer();
 		} else if (status == "false") {
 			$(".toilet-status").html("vacant");
+			$(".toilet-status").removeClass("-loading");
 			$timer.timer('remove');
 		}
 	});

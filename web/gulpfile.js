@@ -1,17 +1,14 @@
 var gulp        = require('gulp');
 var browserSync = require('browser-sync').create();
 
-gulp.task('css', browserSync.reload);
-
-
 // Static server
-gulp.task('browser-sync', function() {
+gulp.task('server', function() {
     browserSync.init({
         server: {
             baseDir: "./src"
         }
     });
 
-		gulp.watch("/*.css", ['css']);
+		gulp.watch(["./src/*.html","./src/*.css"]).on("change", browserSync.reload);
 
 });

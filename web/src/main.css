@@ -150,6 +150,7 @@ html, body{
   color: #fff;
   border: 2px #3C24B5 solid;
   border-radius: 3px;
+	visibility: hidden;
 
 	margin-top: 2em;
   padding: 20px 40px;

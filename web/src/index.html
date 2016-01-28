@@ -23,7 +23,19 @@
 <script>
 	var ref = new Firebase("https://need2wee.firebaseio.com/occupied/");
 	var $timer = $('.toiler-timer');
+	$('.notify-me').on("click", function(){
+		if (!Notify.needsPermission) {
+				doNotification();
+		} else if (Notify.isSupported()) {
+				Notify.requestPermission();
+		}
+	});
 
+	function letHerRip(){
+		var weeNotification = new Notify('You\'re all good to go!',{
+			body: 'Just letting you know the toilet is free for a wee'
+		});
+	}
 
 	ref.on("value", function(thing){
 		var status = thing.val()["occupied"];
@@ -32,10 +44,13 @@
 			$(".toilet-status").html("occupied");
 			$(".toilet-status").removeClass("-loading");
 			$timer.timer();
+			$('.notify-me').hide();
 		} else if (status == "false") {
+			$('.notify-me').show();
 			$(".toilet-status").html("vacant");
 			$(".toilet-status").removeClass("-loading");
 			$timer.timer('remove');
+			letHerRip();
 		}
 	});
 </script>

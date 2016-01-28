@@ -143,3 +143,31 @@ html, body{
  -moz-animation-timing-function: linear;
  animation-timing-function: linear;
 }
+
+.notify-me{
+	box-sizing: border-box;
+  background-color: #3C24B5;
+  color: #fff;
+  border: 2px #3C24B5 solid;
+  border-radius: 3px;
+
+	margin-top: 2em;
+  padding: 20px 40px;
+
+  font-family: "Montserrat";
+  font-size: 18px;
+  font-weight: 200;
+  letter-spacing: 1px;
+  outline: none;
+
+  transition: background-color 200ms ease, box-shadow 200ms ease;
+}
+
+
+.notify-me:hover{
+	 background-color: lighten(#3C24B5,20);
+	 /*transform: translateY(-10%);*/
+		webkit-box-shadow: 6px 6px 0px -1px rgba(0,0,0,1);
+		-moz-box-shadow: 6px 6px 0px -1px rgba(0,0,0,1);
+		box-shadow: 0px 6px 0px -1px rgba(0,0,0,1);
+}

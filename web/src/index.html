@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>PC Toilet</title>
 	<link rel="stylesheet" href="main.css">
 	<script src="https://cdn.firebase.com/js/client/2.3.2/firebase.js"></script>
@@ -23,18 +24,26 @@
 <script>
 	var ref = new Firebase("https://need2wee.firebaseio.com/occupied/");
 	var $timer = $('.toiler-timer');
+	var hasRequested = false;
+
 	$('.notify-me').on("click", function(){
 		if (!Notify.needsPermission) {
-				doNotification();
+
 		} else if (Notify.isSupported()) {
 				Notify.requestPermission();
 		}
+		$('.notify-me').fadeOut();
+		hasRequested = true;
 	});
 
 	function letHerRip(){
 		var weeNotification = new Notify('You\'re all good to go!',{
-			body: 'Just letting you know the toilet is free for a wee'
+			body: 'Just letting you know the toilet is free for a wee',
+			icon: './img/toilet-emoji.png'
 		});
+
+		weeNotification.show();
+		hasRequested = false;
 	}
 
 	ref.on("value", function(thing){
@@ -44,13 +53,15 @@
 			$(".toilet-status").html("occupied");
 			$(".toilet-status").removeClass("-loading");
 			$timer.timer();
-			$('.notify-me').hide();
+			$('.notify-me').fadeIn();
 		} else if (status == "false") {
-			$('.notify-me').show();
+			$('.notify-me').fadeOut();
 			$(".toilet-status").html("vacant");
 			$(".toilet-status").removeClass("-loading");
 			$timer.timer('remove');
-			letHerRip();
+			if (hasRequested) {
+				letHerRip();
+			}
 		}
 	});
 </script>

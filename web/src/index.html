@@ -17,6 +17,7 @@
 		<div class="">The toilet is: </div>
 		<div class="toilet-status -loading"><img height="45px" src="./img/toilet-emoji.png" alt="spinner"></div>
 		<div class="toiler-timer"></div>
+		<div class="message">We're checking whether the toilet is free for a wee, two secs.</div>
 		<button class="notify-me">Notify me!</button>
 	</div>
 </div>
@@ -33,12 +34,13 @@
 				Notify.requestPermission();
 		}
 		$('.notify-me').fadeOut();
+		$(".message").html("We'll let you know when it\'s free for a wee.");
 		hasRequested = true;
 	});
 
 	function letHerRip(){
 		var weeNotification = new Notify('You\'re all good to go!',{
-			body: 'Just letting you know the toilet is free for a wee',
+			body: 'Just letting you know the toilet is free for a wee.',
 			icon: './img/toilet-emoji.png'
 		});
 
@@ -50,14 +52,18 @@
 		var status = thing.val()["occupied"];
 
 		if (status == "true") {
+			// TOILET IS OCCUPIED
 			$(".toilet-status").html("occupied");
 			$(".toilet-status").removeClass("-loading");
 			$timer.timer();
 			$('.notify-me').fadeIn();
+			$(".message").html("");
 		} else if (status == "false") {
+			// TOILET IS VACANT
 			$('.notify-me').fadeOut();
 			$(".toilet-status").html("vacant");
 			$(".toilet-status").removeClass("-loading");
+			$(".message").html("She good to go mate.");
 			$timer.timer('remove');
 			if (hasRequested) {
 				letHerRip();
